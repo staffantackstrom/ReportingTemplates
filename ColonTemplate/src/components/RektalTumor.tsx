@@ -2,17 +2,16 @@ import * as React from "react";
 import { Collapse, Col, Container, Row } from "react-bootstrap";
 
 import { SectraRow, SectraInput, SectraSelect, SectraButtonGroup } from "@sectramedical/srt-components";
-import { Size } from "./Size";
 import { TumorTexts } from "./TumorTexts";
 
 
-interface TumorProps {
+interface RektalTumorProps {
     idExtension: number;
     keyId: number;
     removeFunction: (id: number) => void;
 }
 
-interface TumorState {
+interface RektalTumorState {
     open: boolean;
     zone: string;
     t2Val: string;
@@ -30,12 +29,12 @@ interface T2Texts {
     transition: string[];
 }
 
-export class Tumor extends React.Component<TumorProps, TumorState> {
+export class RektalTumor extends React.Component<RektalTumorProps, RektalTumorState> {
     private collapseDiv: React.Ref<HTMLDivElement>
     private oneToFive = ["1", "2", "3", "4", "5"];
     private piradsId = "pirads" + this.props.idExtension;
     private piradsElement : JSX.Element;
-    constructor(props: TumorProps) {
+    constructor(props: RektalTumorProps) {
         super(props);
         this.state = {open: false, zone: "", t2Text: "", t2Val: "", dwiText: "", dwiVal: "", piradsVal: "", dceVal: "", epeVal: "", sviVal: ""};
         this.collapse = this.collapse.bind(this);
@@ -165,7 +164,7 @@ export class Tumor extends React.Component<TumorProps, TumorState> {
                         <SectraRow labelFor={sectorId} labelText="Largest part in sector">
                             <p id={sectorId}>{sector}</p>
                         </SectraRow>
-                        <Size idExtension={this.props.idExtension} id={sizeId} />
+                        
                         <SectraRow labelFor={epeId} labelText="EPE">
                             <SectraInput type="text" id={epeId} name={epeId} value={this.state.epeVal} bsSize="xl" hidden></SectraInput>
                             <SectraButtonGroup name={epeId + "s"} buttonValues={yesNoEq} onStateChange={(s: string) => this.setState({epeVal: s})} preventOutput={true}></SectraButtonGroup>

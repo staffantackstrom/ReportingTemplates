@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import { SectraRow, SectraSelect, SectraInput, SectraCheckButtonGroup, SectraCheckButton } from "@sectramedical/srt-components";
-import { Tumor } from "./Tumor";
+import { SectraRow, SectraSelect, SectraInput, SectraCheckButtonGroup, SectraCheckButton, SectraRadioButton } from "@sectramedical/srt-components";
+import { KolonTumor } from "./KolonTumor";
+import { RektalTumor } from "./RektalTumor";
 import { Col, Container, Row } from "react-bootstrap";
 
 
@@ -13,18 +14,30 @@ interface MainState {
 export class Main extends React.Component<{}, MainState> {
 	constructor(props: any) {
 		super(props);
-		this.addTumor = this.addTumor.bind(this);
+		this.addKolonTumor = this.addKolonTumor.bind(this);
+		this.addRektalTumor = this.addRektalTumor.bind(this);
 		this.removeTumor = this.removeTumor.bind(this);
 		this.state = {
-			tumors: [<Tumor idExtension={1} removeFunction={this.removeTumor} key={1} keyId={1}/>],
-			nextKey: 2
+			//tumors: [<KolonTumor idExtension={1} removeFunction={this.removeTumor} key={1} keyId={1}/>],
+			tumors: [],
+			nextKey: 1
 		}
 	}
 
-	addTumor() {
+	addKolonTumor() {
 		this.setState((state) => {
 			const key = state.tumors.length + 1;
-			const newTumor = <Tumor idExtension={key} removeFunction={this.removeTumor} key={state.nextKey} keyId={state.nextKey} />;
+			const newTumor = <KolonTumor idExtension={key} removeFunction={this.removeTumor} key={state.nextKey} keyId={state.nextKey}/>;
+			const tumors = state.tumors.splice(0);
+			tumors.push(newTumor);
+			return {tumors: tumors, nextKey: state.nextKey + 1}
+		});
+	}
+
+	addRektalTumor() {
+		this.setState((state) => {
+			const key = state.tumors.length + 1;
+			const newTumor = <RektalTumor idExtension={key} removeFunction={this.removeTumor} key={state.nextKey} keyId={state.nextKey} />;
 			const tumors = state.tumors.splice(0);
 			tumors.push(newTumor);
 			return {tumors: tumors, nextKey: state.nextKey + 1}
@@ -45,14 +58,28 @@ export class Main extends React.Component<{}, MainState> {
 			<Container>
 				<Row className="show-grid form-row">
 					<Col xs={12}>
-						<SectraRow labelFor="blood-artefacts" labelText="Blood artefacts">
-							<SectraCheckButtonGroup>
-								<SectraCheckButton id="thorax-buk" name="thorax-buk" value="0">DT Thorax/buk</SectraCheckButton>
-								<SectraCheckButton id="thorax" name="thorax" value="0">DT Thorax</SectraCheckButton>
-							</SectraCheckButtonGroup>
+						<SectraCheckButtonGroup>
+							<SectraRow labelFor="undersokningar" labelText="1. Undersokningar">
+								<SectraCheckButton id="dtthoraxbuk" name="dtthoraxbuk" value="DT thorax/buk"></SectraCheckButton>
+								<SectraCheckButton id="dtthorax" name="dtthorax" value="DT thorax"></SectraCheckButton>
+								<SectraCheckButton id="petdt" name="petdt" value="PET/DT"></SectraCheckButton>
+								<SectraCheckButton id="mrlillabackenet" name="mrlillabackenet" value="MRT lilla backenet"></SectraCheckButton>
+								<SectraCheckButton id="dtbuk" name="dtbuk" value="DT buk"></SectraCheckButton>
+								<SectraCheckButton id="lungrtg" name="lungrtg" value="Lungrtg"></SectraCheckButton>
+								<SectraCheckButton id="mrtlever" name="mrtlever" value="MRT lever"></SectraCheckButton>
+								<SectraCheckButton id="dtcolon" name="dtcolon" value="DT kolon"></SectraCheckButton>
+								<SectraCheckButton id="ullever" name="ullever" value="Ultraljud lever"></SectraCheckButton>					
+							</SectraRow>
+							<SectraRow>
+								<SectraCheckButton id="undersokningar_annan" name="undersokningar_annan" value="Annat"></SectraCheckButton>	
+								<SectraInput type="string" id="undersokningar_annan_txt" name="undersokningar_annan_txt"></SectraInput>
+							</SectraRow>
+						</SectraCheckButtonGroup>
+						<SectraRow labelFor="mdk" labelText="MDK-konferens datum">
+							<SectraInput type="string" id="mdk" name="mdk"></SectraInput>
 						</SectraRow>
-						<SectraRow labelFor="adc" labelText="ADC">
-							<SectraInput type="number" id="adc" name="ADC" bsSize="sm" step={0.001}></SectraInput> mm²/s
+						<SectraRow>
+							<SectraCheckButton id="ingen_tumor_radiologiskt" name="ingen_tumor_radiologiskt" value="Ingen tumor avgransas radiologiskt"></SectraCheckButton>	
 						</SectraRow>
 					</Col>
 				</Row>
@@ -64,7 +91,8 @@ export class Main extends React.Component<{}, MainState> {
 			<Container>
 				<Row className="show-grid form-row">
 					<Col xs={12}>
-						<button id="add-tumor" className="btn btn-link chevron" onClick={this.addTumor}>+ Tumor</button>
+						<button id="add-tumor" className="btn btn-link chevron" onClick={this.addKolonTumor}>+ Colontumor</button>
+						<button id="add-tumor" className="btn btn-link chevron" onClick={this.addRektalTumor}>+ Rektaltumor</button>
 					</Col>
 				</Row>
 			</Container>
