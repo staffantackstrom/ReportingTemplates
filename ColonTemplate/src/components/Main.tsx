@@ -3,7 +3,7 @@ import * as React from "react";
 import { SectraRow, SectraSelect, SectraInput, SectraCheckButtonGroup, SectraCheckButton, SectraRadioButton } from "@sectramedical/srt-components";
 import { KolonTumor } from "./KolonTumor";
 import { RektalTumor } from "./RektalTumor";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Grid, Row } from "react-bootstrap";
 
 
 interface MainState {
@@ -55,7 +55,7 @@ export class Main extends React.Component<{}, MainState> {
 		let idExtension = 0;
 		return (<div>
 			<input type="text" data-custom-field-type="add/remove html" name="Number of tumors" value={this.state.tumors.length} hidden></input>
-			<Container>
+			<Grid>
 				<Row className="show-grid form-row">
 					<Col xs={12}>
 						<SectraCheckButtonGroup>
@@ -83,19 +83,19 @@ export class Main extends React.Component<{}, MainState> {
 						</SectraRow>
 					</Col>
 				</Row>
-			</Container>
+			</Grid>
 			{this.state.tumors.map((elem: JSX.Element) => {
 				idExtension += 1
-				return <Container key={"grid" + elem.key}><Row className="show-grid form-row"><Col xs={12}>{React.cloneElement(elem, {idExtension: idExtension})}</Col></Row></Container>;
+				return <Grid key={"grid" + elem.key}><Row className="show-grid form-row"><Col xs={12}>{React.cloneElement(elem, {idExtension: idExtension})}</Col></Row></Grid>;
 			})}
-			<Container>
+			<Grid>
 				<Row className="show-grid form-row">
 					<Col xs={12}>
 						<button id="add-tumor" className="btn btn-link chevron" onClick={this.addKolonTumor}>+ Colontumor</button>
 						<button id="add-tumor" className="btn btn-link chevron" onClick={this.addRektalTumor}>+ Rektaltumor</button>
 					</Col>
 				</Row>
-			</Container>
+			</Grid>
 			<br></br>
 		</div>);
 	}

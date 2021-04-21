@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Collapse, Col, Container, Row } from "react-bootstrap";
+import { Collapse, Col, Grid, Row } from "react-bootstrap";
 
 import { SectraRow, SectraInput, SectraSelect, SectraButtonGroup, SectraCheckButtonGroup, SectraCheckButton } from "@sectramedical/srt-components";
 import { TumorTexts } from "./TumorTexts";
@@ -118,7 +118,7 @@ export class KolonTumor extends React.Component<KolonTumorProps, KolonTumorState
                 <label htmlFor={"a" + this.props.idExtension}></label>
                 <input type="hidden" data-field-type="text" id={"a" + this.props.idExtension} name={"a" + this.props.idExtension} value=" "></input>
                 <input type="hidden" name={"Tumor " + this.props.idExtension} data-field-type="text" value=" "></input>
-                <Container><Row className="show-grid"><Col xs={4} style={{paddingLeft: 0}}>
+                <Grid><Row className="show-grid"><Col xs={4} style={{paddingLeft: 0}}>
                 <button className="btn btn-link chevron" onClick={this.collapse}>Tumor {this.props.idExtension} <img src={this.state.open ? chevronOpen : chevronClosed}></img></button>
                 </Col><Col xs={7}>
                 <Collapse in={!this.state.open}>
@@ -129,7 +129,7 @@ export class KolonTumor extends React.Component<KolonTumorProps, KolonTumorState
                 <Col xs={1}>
                     <button className="btn btn-link chevron pull-right" onClick={this.remove}>X</button>
                 </Col>
-                </Row></Container>
+                </Row></Grid>
                 <Collapse in={this.state.open}>
                 <div>
                 <div className="">
@@ -181,12 +181,12 @@ export class KolonTumor extends React.Component<KolonTumorProps, KolonTumorState
                             <SectraInput type="text" bsSize="xl" id="annan_tumorinfiltration" name="annan_tumorinfiltration" value={this.state.tumorinfiltrationAnnat}></SectraInput>
                         </SectraRow>
                     </div>  
-                    <Container>
+                    <Grid>
                         <Row className="show-grid">
                             <Col xs={4}></Col>
                             <Col xs={8}><div className="template-group"></div></Col>
                         </Row>
-                    </Container>
+                    </Grid>
                 </div>
                 </Collapse>
             </div>
